@@ -1,0 +1,93 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.button {
+  display: flex;
+  color: white;
+  height: 80px;
+  justify-content: center;
+  align-items: center;
+  width: 80px;
+  background-color: rgb(85, 85, 85);
+  border-radius: 50%;
+  transition: filter 0.5s ease-out;
+}
+
+.notOperator:hover {
+  filter: brightness(160%);
+  transition: filter 0.1s ease;
+}
+
+.operator:hover {
+  background-color: #ffe46a;
+  transition: background-color 0.1s ease;
+}
+
+.clears {
+  background-color: #dbdada;
+  color: #000000;
+}
+
+body {
+  height: 100vh;
+  background-color: #000000;
+  font-size: 30px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 500;
+  overflow-y: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.operator {
+  background-color: #ffd20a;
+  transition: background-color 0.5s ease;
+  font-size: 40px;
+  font-weight: 900px;
+}
+
+.mainContainer {
+  width: auto;
+}
+
+.displayContainer {
+  width: auto;
+  height: 180px;
+}
+
+#subDisplay {
+  color: white;
+  text-align: end;
+  padding: 25px;
+  height: 90px;
+}
+
+#display {
+  padding: 30px;
+  line-height: 15px;
+  text-align: end;
+  color: white;
+  font-size: 100px;
+}
+
+.buttonContainer {
+  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  gap: 10px;
+}
+
+#zero {
+  display: flex;
+  justify-content: start;
+  padding-left: 30px;
+  grid-column: 1 / span 2;
+  width: 170px;
+  border-radius: 90px;
+}
