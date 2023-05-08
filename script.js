@@ -18,15 +18,19 @@ function operate(operator, a, b) {
   switch (operator) {
     case "x":
       mainDisplay.textContent = multiply(a, b);
+      operand1 = mainDisplay.textContent;
       break;
     case "-":
       mainDisplay.textContent = subtract(a, b);
+      operand1 = mainDisplay.textContent;
       break;
     case "+":
       mainDisplay.textContent = add(a, b);
+      operand1 = mainDisplay.textContent;
       break;
     case "/":
       mainDisplay.textContent = divide(a, b);
+      operand1 = mainDisplay.textContent;
       break;
   }
 }
@@ -58,16 +62,23 @@ ac.addEventListener("click", function () {
   subDisplay.textContent = "";
 });
 
-equals.addEventListener("click", function () {
-  let temp = subDisplay.textContent.split(" ");
-  operand2 = temp[2];
-  operate(operator, operand1, operand2);
-});
+equals.addEventListener("click", equal);
 
-for (operator of operators) {
-  operator.addEventListener("click", function () {
+function equal() {
+  let temp = subDisplay.textContent.split(" ");
+  operand2 = temp[temp.length - 1];
+  operate(operator, operand1, operand2);
+}
+
+for (operatorX of operators) {
+  operatorX.addEventListener("click", function () {
+    if (operator !== undefined) {
+      equal();
+    }
     operator = this.getAttribute("data-value");
-    operand1 = subDisplay.textContent;
+    if (operand1 === undefined) {
+      operand1 = subDisplay.textContent;
+    }
     switch (operator) {
       case "x":
         subDisplayContent(" × ");
