@@ -39,6 +39,7 @@ let operator;
 let operand1;
 let operand2;
 let self;
+let equalCondition = false;
 
 const subDisplay = document.getElementById("subDisplay");
 const digits = document.querySelectorAll("div.digit");
@@ -59,6 +60,7 @@ ac.addEventListener("click", function () {
   operator = undefined;
   operand1 = undefined;
   operand2 = undefined;
+  self = undefined;
   mainDisplay.textContent = "0";
   subDisplay.textContent = "";
 });
@@ -67,40 +69,48 @@ equals.addEventListener("click", equal);
 
 function equal() {
   let temp = subDisplay.textContent.split(" ");
-  if (self === undefined) {
+  if (self === undefined && temp.length < 4) {
     operand2 = temp[temp.length - 1];
-  } else {
-    operand2 = Number(operand2);
   }
-  if (typeof operand2 != "number") {
+  if (operand2 === "") {
     operand2 = operand1;
     self = operand1;
   }
+  equalCondition = true;
   operate(operator, operand1, operand2);
 }
 
 for (operatorX of operators) {
   operatorX.addEventListener("click", function () {
-    if (operator !== undefined) {
+    if ((equalCondition = false && operator !== undefined)) {
       equal();
     }
     operator = this.getAttribute("data-value");
     if (operand1 === undefined) {
       operand1 = subDisplay.textContent;
     }
-    switch (operator) {
-      case "x":
-        subDisplayContent(" × ");
-        break;
-      case "-":
-        subDisplayContent(" − ");
-        break;
-      case "+":
-        subDisplayContent(" + ");
-        break;
-      case "/":
-        subDisplayContent(" ÷ ");
-        break;
+    let temp = subDisplay.textContent.split(" ");
+    if (
+      temp.length !== 1
+      // temp[temp.length - 1] !== " x " ||
+      // temp[temp.length - 1] !== " / " ||  FIX THIS!
+      // temp[temp.length - 1] !== " + " ||  PREVENT MULTIPLE OPERATORS
+      // temp[temp.length - 1] !== " - "
+    ) {
+      switch (operator) {
+        case "x":
+          subDisplayContent(" × ");
+          break;
+        case "-":
+          subDisplayContent(" − ");
+          break;
+        case "+":
+          subDisplayContent(" + ");
+          break;
+        case "/":
+          subDisplayContent(" ÷ ");
+          break;
+      }
     }
   });
 }
