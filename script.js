@@ -38,6 +38,7 @@ function operate(operator, a, b) {
 let operator;
 let operand1;
 let operand2;
+let self;
 
 const subDisplay = document.getElementById("subDisplay");
 const digits = document.querySelectorAll("div.digit");
@@ -66,7 +67,15 @@ equals.addEventListener("click", equal);
 
 function equal() {
   let temp = subDisplay.textContent.split(" ");
-  operand2 = temp[temp.length - 1];
+  if (self === undefined) {
+    operand2 = temp[temp.length - 1];
+  } else {
+    operand2 = Number(operand2);
+  }
+  if (typeof operand2 != "number") {
+    operand2 = operand1;
+    self = operand1;
+  }
   operate(operator, operand1, operand2);
 }
 
