@@ -50,10 +50,12 @@ const ac = document.getElementById("fullClear");
 const c = document.getElementById("clear");
 
 c.addEventListener("click", function () {
-  if (operand2 === undefined) {
-    operand1 = undefined;
-  } else operand2 = undefined;
-  subDisplay.textContent = "";
+  let temp = subDisplay.textContent.split("");
+  if (temp[temp.length - 1] === " ") {
+    temp.splice(temp.length - 3, 3);
+    subDisplay.textContent = temp.join(" ");
+    operator = undefined;
+  }
 });
 
 ac.addEventListener("click", function () {
@@ -82,34 +84,30 @@ function equal() {
 
 for (operatorX of operators) {
   operatorX.addEventListener("click", function () {
-    if ((equalCondition = false && operator !== undefined)) {
+    if (operator !== undefined) {
       equal();
     }
-    operator = this.getAttribute("data-value");
     if (operand1 === undefined) {
       operand1 = subDisplay.textContent;
     }
-    let temp = subDisplay.textContent.split(" ");
-    if (
-      temp.length !== 1
-      // temp[temp.length - 1] !== " x " ||
-      // temp[temp.length - 1] !== " / " ||  FIX THIS!
-      // temp[temp.length - 1] !== " + " ||  PREVENT MULTIPLE OPERATORS
-      // temp[temp.length - 1] !== " - "
-    ) {
-      switch (operator) {
-        case "x":
-          subDisplayContent(" × ");
-          break;
-        case "-":
-          subDisplayContent(" − ");
-          break;
-        case "+":
-          subDisplayContent(" + ");
-          break;
-        case "/":
-          subDisplayContent(" ÷ ");
-          break;
+    let temp = subDisplay.textContent.split("");
+    if (temp.length >= 1) {
+      if (temp[temp.length - 1] !== " ") {
+        operator = this.getAttribute("data-value");
+        switch (operator) {
+          case "x":
+            subDisplayContent(" × ");
+            break;
+          case "-":
+            subDisplayContent(" − ");
+            break;
+          case "+":
+            subDisplayContent(" + ");
+            break;
+          case "/":
+            subDisplayContent(" ÷ ");
+            break;
+        }
       }
     }
   });
