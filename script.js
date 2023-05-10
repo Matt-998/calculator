@@ -50,14 +50,16 @@ let operand2;
 let self;
 let equalCondition = false;
 let clearCondition = false;
+let decimalCondition = false;
 
 const subDisplay = document.getElementById("subDisplay");
-const digits = document.querySelectorAll("div.digit");
+const digits = document.querySelectorAll("div.digit:not(#period)");
 const operators = document.querySelectorAll("div.operator:not(#equals)");
 const equals = document.getElementById("equals");
 const mainDisplay = document.getElementById("display");
 const ac = document.getElementById("fullClear");
 const c = document.getElementById("clear");
+const decimal = document.getElementById("period");
 
 c.addEventListener("click", function () {
   if (mainDisplay.textContent === "Error") {
@@ -88,6 +90,7 @@ function allClear() {
   operand2 = undefined;
   self = undefined;
   equalCondition = false;
+  decimalCondition = false;
   mainDisplay.textContent = "0";
   subDisplay.textContent = "";
 }
@@ -122,6 +125,7 @@ for (operatorX of operators) {
           }
           operator = this.getAttribute("data-value");
           equalCondition = false;
+          decimalCondition = false;
           switch (operator) {
             case "x":
               subDisplayContent(" × ");
@@ -141,8 +145,6 @@ for (operatorX of operators) {
     }
   });
 }
-// DON'T LET IT ADD MORE DIGITS AFTER EQUALS WITHOUT FIRST SELECTING NEW OPERATOR
-
 // DON'T ALLOW MORE THAN 1 DECIMAL
 
 // ADD KEYBOARD SUPPORT
@@ -156,6 +158,14 @@ for (const digit of digits) {
     }
   });
 }
+
+decimal.addEventListener("click", function () {
+  let temp = subDisplay.textContent.split("");
+  if (decimalCondition === false) {
+    subDisplayContent(this.getAttribute("data-value"));
+    decimalCondition = true;
+  }
+});
 
 function subDisplayContent(text) {
   subDisplay.textContent = subDisplay.textContent + text;
