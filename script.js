@@ -49,6 +49,7 @@ let operand1;
 let operand2;
 let self;
 let equalCondition = false;
+let clearCondition = false;
 
 const subDisplay = document.getElementById("subDisplay");
 const digits = document.querySelectorAll("div.digit");
@@ -57,20 +58,22 @@ const equals = document.getElementById("equals");
 const mainDisplay = document.getElementById("display");
 const ac = document.getElementById("fullClear");
 const c = document.getElementById("clear");
-
+// PREVENT MULTIPLE CLEARS IN A ROW
 c.addEventListener("click", function () {
   if (mainDisplay.textContent === "Error") {
     allClear();
-  } else {
+  } else if (clearCondition === false) {
     let temp = subDisplay.textContent.split("");
     if (temp[temp.length - 1] === " ") {
       temp.splice(temp.length - 3, 3);
       subDisplay.textContent = temp.join("");
       operator = undefined;
+      clearCondition = true;
     } else {
       temp = subDisplay.textContent.split(" ");
       temp.splice(temp.length - 1, 1, " ");
       subDisplay.textContent = temp.join(" ");
+      clearCondition = true;
     }
   }
 });
@@ -103,6 +106,7 @@ function equal() {
 
 for (operatorX of operators) {
   operatorX.addEventListener("click", function () {
+    clearCondition = false;
     if (mainDisplay.textContent === "Error") {
       allClear();
     } else {
@@ -136,9 +140,14 @@ for (operatorX of operators) {
     }
   });
 }
+// DON'T LET IT ADD MORE DIGITS AFTER EQUALS WITHOUT FIRST SELECTING NEW OPERATOR
 
+// DON'T ALLOW MORE THAN 1 DECIMAL
+
+// ADD KEYBOARD SUPPORT
 for (const digit of digits) {
   digit.addEventListener("click", function () {
+    clearCondition = false;
     if (mainDisplay.textContent === "Error") {
       allClear();
     }
