@@ -17,22 +17,29 @@ function divide(a, b) {
 function operate(operator, a, b) {
   switch (operator) {
     case "x":
-      mainDisplay.textContent = multiply(a, b);
+      mainDisplay.textContent =
+        Math.round((multiply(a, b) + Number.EPSILON) * 100) / 100;
       operand1 = mainDisplay.textContent;
       break;
     case "-":
-      mainDisplay.textContent = subtract(a, b);
+      mainDisplay.textContent =
+        Math.round((subtract(a, b) + Number.EPSILON) * 100) / 100;
       operand1 = mainDisplay.textContent;
       break;
     case "+":
-      mainDisplay.textContent = add(a, b);
+      mainDisplay.textContent =
+        Math.round((add(a, b) + Number.EPSILON) * 100) / 100;
       operand1 = mainDisplay.textContent;
       break;
     case "/":
-      if (divide(a, b) === Infinity) {
+      let result = divide(a, b);
+      if (result === Infinity) {
         mainDisplay.textContent = "Error";
+      } else {
+        mainDisplay.textContent =
+          Math.round((result + Number.EPSILON) * 100) / 100;
+        operand1 = mainDisplay.textContent;
       }
-      operand1 = mainDisplay.textContent;
       break;
   }
 }
