@@ -62,7 +62,7 @@ const c = document.getElementById("clear");
 c.addEventListener("click", function () {
   if (mainDisplay.textContent === "Error") {
     allClear();
-  } else if (clearCondition === false) {
+  } else if (clearCondition === false && equalCondition === false) {
     let temp = subDisplay.textContent.split("");
     if (temp[temp.length - 1] === " ") {
       temp.splice(temp.length - 3, 3);
@@ -87,6 +87,7 @@ function allClear() {
   operand1 = undefined;
   operand2 = undefined;
   self = undefined;
+  equalCondition = false;
   mainDisplay.textContent = "0";
   subDisplay.textContent = "";
 }
@@ -150,8 +151,9 @@ for (const digit of digits) {
     clearCondition = false;
     if (mainDisplay.textContent === "Error") {
       allClear();
+    } else if (equalCondition === false) {
+      subDisplayContent(this.getAttribute("data-value"));
     }
-    subDisplayContent(this.getAttribute("data-value"));
   });
 }
 
