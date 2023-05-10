@@ -58,7 +58,7 @@ const equals = document.getElementById("equals");
 const mainDisplay = document.getElementById("display");
 const ac = document.getElementById("fullClear");
 const c = document.getElementById("clear");
-// PREVENT MULTIPLE CLEARS IN A ROW
+
 c.addEventListener("click", function () {
   if (mainDisplay.textContent === "Error") {
     allClear();
@@ -110,15 +110,15 @@ for (operatorX of operators) {
     if (mainDisplay.textContent === "Error") {
       allClear();
     } else {
-      if (operator !== undefined && equalCondition === false) {
-        equal();
-      }
       if (operand1 === undefined) {
         operand1 = subDisplay.textContent;
       }
       let temp = subDisplay.textContent.split("");
       if (temp.length >= 1) {
         if (temp[temp.length - 1] !== " ") {
+          if (operator !== undefined && equalCondition === false) {
+            equal();
+          }
           operator = this.getAttribute("data-value");
           equalCondition = false;
           switch (operator) {
