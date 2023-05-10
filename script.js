@@ -29,7 +29,9 @@ function operate(operator, a, b) {
       operand1 = mainDisplay.textContent;
       break;
     case "/":
-      mainDisplay.textContent = divide(a, b);
+      if (divide(a, b) === Infinity) {
+        mainDisplay.textContent = "Error";
+      }
       operand1 = mainDisplay.textContent;
       break;
   }
@@ -50,28 +52,38 @@ const ac = document.getElementById("fullClear");
 const c = document.getElementById("clear");
 
 c.addEventListener("click", function () {
-  let temp = subDisplay.textContent.split("");
-  if (temp[temp.length - 1] === " ") {
-    temp.splice(temp.length - 3, 3);
-    subDisplay.textContent = temp.join(" ");
-    operator = undefined;
+  if (mainDisplay.textContent === "Error") {
+    allClear();
+  } else {
+    let temp = subDisplay.textContent.split("");
+    if (temp[temp.length - 1] === " ") {
+      temp.splice(temp.length - 3, 3);
+      subDisplay.textContent = temp.join("");
+      operator = undefined;
+    } else {
+      temp = subDisplay.textContent.split(" ");
+      temp.splice(temp.length - 1, 1, " ");
+      subDisplay.textContent = temp.join(" ");
+    }
   }
 });
 
-ac.addEventListener("click", function () {
+ac.addEventListener("click", allClear);
+
+equals.addEventListener("click", equal);
+
+function allClear() {
   operator = undefined;
   operand1 = undefined;
   operand2 = undefined;
   self = undefined;
   mainDisplay.textContent = "0";
   subDisplay.textContent = "";
-});
-
-equals.addEventListener("click", equal);
+}
 
 function equal() {
   let temp = subDisplay.textContent.split(" ");
-  if (self === undefined && temp.length < 4) {
+  if (self === undefined) {
     operand2 = temp[temp.length - 1];
   }
   if (operand2 === "") {
@@ -84,29 +96,34 @@ function equal() {
 
 for (operatorX of operators) {
   operatorX.addEventListener("click", function () {
-    if (operator !== undefined) {
-      equal();
-    }
-    if (operand1 === undefined) {
-      operand1 = subDisplay.textContent;
-    }
-    let temp = subDisplay.textContent.split("");
-    if (temp.length >= 1) {
-      if (temp[temp.length - 1] !== " ") {
-        operator = this.getAttribute("data-value");
-        switch (operator) {
-          case "x":
-            subDisplayContent(" × ");
-            break;
-          case "-":
-            subDisplayContent(" − ");
-            break;
-          case "+":
-            subDisplayContent(" + ");
-            break;
-          case "/":
-            subDisplayContent(" ÷ ");
-            break;
+    if (mainDisplay.textContent === "Error") {
+      allClear();
+    } else {
+      if (operator !== undefined && equalCondition === false) {
+        equal();
+      }
+      if (operand1 === undefined) {
+        operand1 = subDisplay.textContent;
+      }
+      let temp = subDisplay.textContent.split("");
+      if (temp.length >= 1) {
+        if (temp[temp.length - 1] !== " ") {
+          operator = this.getAttribute("data-value");
+          equalCondition = false;
+          switch (operator) {
+            case "x":
+              subDisplayContent(" × ");
+              break;
+            case "-":
+              subDisplayContent(" − ");
+              break;
+            case "+":
+              subDisplayContent(" + ");
+              break;
+            case "/":
+              subDisplayContent(" ÷ ");
+              break;
+          }
         }
       }
     }
@@ -115,6 +132,9 @@ for (operatorX of operators) {
 
 for (const digit of digits) {
   digit.addEventListener("click", function () {
+    if (mainDisplay.textContent === "Error") {
+      allClear();
+    }
     subDisplayContent(this.getAttribute("data-value"));
   });
 }
