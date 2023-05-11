@@ -1,3 +1,35 @@
+let operator;
+let operand1;
+let operand2;
+let self;
+let equalCondition = false;
+let clearCondition = false;
+let decimalCondition = false;
+
+const subDisplay = document.getElementById("subDisplay");
+const digits = document.querySelectorAll("div.digit:not(#period)");
+const operators = document.querySelectorAll("div.operator:not(#equals)");
+const equals = document.getElementById("equals");
+const mainDisplay = document.getElementById("display");
+const ac = document.getElementById("fullClear");
+const c = document.getElementById("clear");
+const decimal = document.getElementById("period");
+
+c.addEventListener("click", clear);
+ac.addEventListener("click", allClear);
+equals.addEventListener("click", equal);
+for (operatorX of operators) {
+  operatorX.addEventListener("click", addOperator);
+}
+for (const digit of digits) {
+  digit.addEventListener("click", addDigit);
+}
+for (const digit of digits) {
+  digit.addEventListener("keydown", addDigit);
+}
+decimal.addEventListener("click", addDecimal);
+document.addEventListener("keydown", keyboardSupport);
+
 function add(a, b) {
   return +a + +b;
 }
@@ -43,38 +75,6 @@ function operate(operator, a, b) {
       break;
   }
 }
-
-let operator;
-let operand1;
-let operand2;
-let self;
-let equalCondition = false;
-let clearCondition = false;
-let decimalCondition = false;
-
-const subDisplay = document.getElementById("subDisplay");
-const digits = document.querySelectorAll("div.digit:not(#period)");
-const operators = document.querySelectorAll("div.operator:not(#equals)");
-const equals = document.getElementById("equals");
-const mainDisplay = document.getElementById("display");
-const ac = document.getElementById("fullClear");
-const c = document.getElementById("clear");
-const decimal = document.getElementById("period");
-
-c.addEventListener("click", clear);
-ac.addEventListener("click", allClear);
-equals.addEventListener("click", equal);
-for (operatorX of operators) {
-  operatorX.addEventListener("click", addOperator);
-}
-for (const digit of digits) {
-  digit.addEventListener("click", addDigit);
-}
-for (const digit of digits) {
-  digit.addEventListener("keydown", addDigit);
-}
-decimal.addEventListener("click", addDecimal);
-document.addEventListener("keydown", keyboardSupport);
 
 function clear() {
   if (mainDisplay.textContent === "Error") {
