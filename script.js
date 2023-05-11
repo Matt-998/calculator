@@ -16,7 +16,7 @@ function divide(a, b) {
 
 function operate(operator, a, b) {
   switch (operator) {
-    case "x":
+    case "*":
       mainDisplay.textContent =
         Math.round((multiply(a, b) + Number.EPSILON) * 100) / 100;
       operand1 = mainDisplay.textContent;
@@ -62,24 +62,19 @@ const c = document.getElementById("clear");
 const decimal = document.getElementById("period");
 
 c.addEventListener("click", clear);
-
 ac.addEventListener("click", allClear);
-
 equals.addEventListener("click", equal);
-
 for (operatorX of operators) {
   operatorX.addEventListener("click", addOperator);
 }
-
 for (const digit of digits) {
   digit.addEventListener("click", addDigit);
 }
-
 for (const digit of digits) {
   digit.addEventListener("keydown", addDigit);
 }
-
 decimal.addEventListener("click", addDecimal);
+document.addEventListener("keydown", keyboardSupport);
 
 function clear() {
   if (mainDisplay.textContent === "Error") {
@@ -144,7 +139,7 @@ function addOperator(key) {
           equalCondition = false;
           decimalCondition = false;
           switch (operator) {
-            case "x":
+            case "*":
               subDisplayContent(" × ");
               break;
             case "-":
@@ -161,7 +156,20 @@ function addOperator(key) {
           operator = key;
           equalCondition = false;
           decimalCondition = false;
-          subDisplayContent(` ${key} `);
+          switch (key) {
+            case "*":
+              subDisplayContent(" × ");
+              break;
+            case "-":
+              subDisplayContent(" − ");
+              break;
+            case "+":
+              subDisplayContent(" + ");
+              break;
+            case "/":
+              subDisplayContent(" ÷ ");
+              break;
+          }
         }
       }
     }
@@ -196,9 +204,8 @@ function addDecimal(key) {
 function subDisplayContent(text) {
   subDisplay.textContent = subDisplay.textContent + text;
 }
-// TIMES IS BROKEN *
-document.addEventListener("keydown", function (e) {
-  console.log(e.code);
+
+function keyboardSupport(e) {
   switch (e.key) {
     case "+":
     case "-":
@@ -225,4 +232,4 @@ document.addEventListener("keydown", function (e) {
       addDigit(e.key);
       break;
   }
-});
+}
