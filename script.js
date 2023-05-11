@@ -61,7 +61,23 @@ const ac = document.getElementById("fullClear");
 const c = document.getElementById("clear");
 const decimal = document.getElementById("period");
 
-c.addEventListener("click", function () {
+c.addEventListener("click", clear);
+
+ac.addEventListener("click", allClear);
+
+equals.addEventListener("click", equal);
+
+for (operatorX of operators) {
+  operatorX.addEventListener("click", addOperator);
+}
+
+for (const digit of digits) {
+  digit.addEventListener("click", addDigit);
+}
+
+decimal.addEventListener("click", addDecimal);
+
+function clear() {
   if (mainDisplay.textContent === "Error") {
     allClear();
   } else if (clearCondition === false && equalCondition === false) {
@@ -78,11 +94,7 @@ c.addEventListener("click", function () {
       clearCondition = true;
     }
   }
-});
-
-ac.addEventListener("click", allClear);
-
-equals.addEventListener("click", equal);
+}
 
 function allClear() {
   operator = undefined;
@@ -108,65 +120,62 @@ function equal() {
   operate(operator, operand1, operand2);
 }
 
-for (operatorX of operators) {
-  operatorX.addEventListener("click", function () {
-    clearCondition = false;
-    if (mainDisplay.textContent === "Error") {
-      allClear();
-    } else {
-      if (operand1 === undefined) {
-        operand1 = subDisplay.textContent;
-      }
-      let temp = subDisplay.textContent.split("");
-      if (temp.length >= 1) {
-        if (temp[temp.length - 1] !== " ") {
-          if (operator !== undefined && equalCondition === false) {
-            equal();
-          }
-          operator = this.getAttribute("data-value");
-          equalCondition = false;
-          decimalCondition = false;
-          switch (operator) {
-            case "x":
-              subDisplayContent(" × ");
-              break;
-            case "-":
-              subDisplayContent(" − ");
-              break;
-            case "+":
-              subDisplayContent(" + ");
-              break;
-            case "/":
-              subDisplayContent(" ÷ ");
-              break;
-          }
+function addOperator() {
+  clearCondition = false;
+  if (mainDisplay.textContent === "Error") {
+    allClear();
+  } else {
+    if (operand1 === undefined) {
+      operand1 = subDisplay.textContent;
+    }
+    let temp = subDisplay.textContent.split("");
+    if (temp.length >= 1) {
+      if (temp[temp.length - 1] !== " ") {
+        if (operator !== undefined && equalCondition === false) {
+          equal();
+        }
+        operator = this.getAttribute("data-value");
+        equalCondition = false;
+        decimalCondition = false;
+        switch (operator) {
+          case "x":
+            subDisplayContent(" × ");
+            break;
+          case "-":
+            subDisplayContent(" − ");
+            break;
+          case "+":
+            subDisplayContent(" + ");
+            break;
+          case "/":
+            subDisplayContent(" ÷ ");
+            break;
         }
       }
     }
-  });
-}
-// DON'T ALLOW MORE THAN 1 DECIMAL
-
-// ADD KEYBOARD SUPPORT
-for (const digit of digits) {
-  digit.addEventListener("click", function () {
-    clearCondition = false;
-    if (mainDisplay.textContent === "Error") {
-      allClear();
-    } else if (equalCondition === false) {
-      subDisplayContent(this.getAttribute("data-value"));
-    }
-  });
+  }
 }
 
-decimal.addEventListener("click", function () {
-  let temp = subDisplay.textContent.split("");
+function addDigit() {
+  clearCondition = false;
+  if (mainDisplay.textContent === "Error") {
+    allClear();
+  } else if (equalCondition === false) {
+    subDisplayContent(this.getAttribute("data-value"));
+  }
+}
+
+function addDecimal() {
   if (decimalCondition === false) {
     subDisplayContent(this.getAttribute("data-value"));
     decimalCondition = true;
   }
-});
+}
 
 function subDisplayContent(text) {
   subDisplay.textContent = subDisplay.textContent + text;
 }
+
+document.addEventListener("keydown", function (e) {
+  console.log(e.key);
+});
