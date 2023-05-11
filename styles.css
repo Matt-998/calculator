@@ -1,110 +1,196 @@
 * {
+  /*Box model stuff*/
   margin: 0;
   padding: 0;
+  /*Miscellaneous*/
   box-sizing: border-box;
-}
-
-.button {
-  display: flex;
-  color: white;
-  height: 80px;
-  justify-content: center;
-  align-items: center;
-  width: 80px;
-  background-color: rgb(85, 85, 85);
-  border-radius: 50%;
-  transition: filter 0.5s ease-out;
-}
-
-.notOperator:hover {
-  filter: brightness(160%);
-  transition: filter 0.1s ease;
-}
-
-.operator:hover {
-  background-color: #ffe46a;
-  transition: background-color 0.1s ease;
-}
-
-.clears {
-  background-color: #dbdada;
-  color: #000000;
+  user-select: none;
 }
 
 body {
-  height: 100vh;
-  background-color: #000000;
-  font-size: 30px;
-  font-family: Arial, Helvetica, sans-serif;
-  font-weight: 500;
-  overflow-y: hidden;
+  /*Display stuff*/
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-}
-
-.operator {
-  background-color: #ffd20a;
-  transition: background-color 0.5s ease;
-  font-size: 40px;
-  font-weight: 900px;
-}
-
-.mainContainer {
-  width: auto;
+  justify-content: center;
+  /*Box model stuff*/
+  height: 100vh;
+  background-color: #000000;
+  /*Typography stuff*/
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 30px;
+  font-weight: 500;
+  /*Miscellaneous*/
+  overflow-y: hidden;
 }
 
 .displayContainer {
+  /*Box model stuff*/
   width: 390px;
   height: auto;
 }
 
 #subDisplay {
-  color: white;
-  text-align: end;
-  padding: 25px 18px;
-  margin-left: 30px;
-  height: auto;
-  min-height: 90px;
+  /*Display stuff*/
   display: flex;
   justify-content: flex-end;
+  /*Box model stuff*/
+  height: auto;
+  min-height: 90px;
+  margin-left: 30px;
+  padding: 25px 18px;
+  /*Typography stuff*/
+  text-align: end;
+  color: white;
+  /*Miscellaneous*/
   overflow: hidden;
   white-space: nowrap;
 }
 
 #display {
-  line-height: 70px;
-  padding: 0px 15px;
-  text-align: end;
-  color: white;
-  font-size: 4rem;
+  /*Display stuff*/
   display: flex;
   justify-content: flex-end;
+  /*Box model stuff*/
+  padding: 0px 15px;
+  /*Typography stuff*/
+  font-size: 4rem;
+  text-align: end;
+  color: white;
+  /*Miscellaneous*/
+  line-height: 70px;
   overflow-wrap: break-word;
   word-break: break-all;
 }
 
 .buttonContainer {
-  padding: 20px;
-  margin-top: 20px;
+  /*Display stuff*/
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(5, 1fr);
+  /*Box model stuff*/
+  margin-bottom: 20px;
+  margin-top: 20px;
+  padding: 20px;
+  /*Miscellaneous*/
   gap: 10px;
 }
 
-#zero {
+.button {
+  /*Display stuff*/
   display: flex;
-  justify-content: start;
-  padding-left: 30px;
+  align-items: center;
+  justify-content: center;
+  /*Box model stuff*/
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: rgb(85, 85, 85);
+  /*Typography stuff*/
+  color: white;
+  /*Manipulations stuff*/
+  transition: filter 0.5s ease-out;
+}
+
+.button:active {
+  /*Miscellaneous*/
+  scale: 0.95;
+}
+
+.notOperator:hover {
+  /*Manipulations stuff*/
+  filter: brightness(160%);
+  transition: filter 0.1s ease;
+}
+
+.operator:hover {
+  /*Box model stuff*/
+  background-color: #ffe46a;
+  /*Manipulations stuff*/
+  transition: background-color 0.1s ease;
+}
+
+.clears {
+  /*Box model stuff*/
+  background-color: #dbdada;
+  /*Typography stuff*/
+  color: #000000;
+}
+
+.operator {
+  /*Box model stuff*/
+  background-color: #ffd20a;
+  /*Typography stuff*/
+  font-size: 40px;
+  font-weight: 900px;
+  /*Manipulations stuff*/
+  transition: background-color 0.5s ease;
+}
+
+#zero {
+  /*Display stuff*/
+  display: flex;
   grid-column: 1 / span 2;
+  justify-content: start;
+  /*Box model stuff*/
   width: 170px;
+  padding-left: 30px;
   border-radius: 90px;
 }
 
 a {
+  /*Box model stuff*/
   background-color: black;
-  color: #dbdada;
+  /*Typography stuff*/
   font-size: 31.5px;
+  color: #dbdada;
+}
+
+footer {
+  /*Box model stuff*/
+  margin-bottom: 30px;
+  /*Typography stuff*/
+  font-size: 15px;
+  text-align: center;
+  color: #979696;
+}
+
+a:hover {
+  /*Miscellaneous*/
+  scale: 1.05;
+}
+
+a.name {
+  /*Display stuff*/
+  display: block;
+  /*Positioning stuff*/
+  position: relative;
+  /*Box model stuff*/
+  margin: 10px;
+  /*Typography stuff*/
+  font-size: 25px;
+  text-decoration: none;
+}
+
+.name::after {
+  /*Display stuff*/
+  content: "";
+  /*Positioning stuff*/
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  /*Box model stuff*/
+  width: 100%;
+  height: 3px;
+  background-color: #dbdada;
+  /*Manipulations stuff*/
+  transform: scaleX(0);
+  transform-origin: bottom right;
+  transition: transform 0.25s ease-out;
+}
+
+.name:hover::after {
+  /*Manipulations stuff*/
+  transform: scaleX(1);
+  transform-origin: bottom left;
 }
