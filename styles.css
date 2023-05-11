@@ -56,27 +56,38 @@ body {
 }
 
 .displayContainer {
-  width: auto;
-  height: 180px;
+  width: 390px;
+  height: auto;
 }
 
 #subDisplay {
   color: white;
   text-align: end;
-  padding: 25px;
-  height: 90px;
+  padding: 25px 18px;
+  margin-left: 30px;
+  height: auto;
+  min-height: 90px;
+  display: flex;
+  justify-content: flex-end;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 #display {
-  padding: 30px;
-  line-height: 15px;
+  line-height: 70px;
+  padding: 0px 15px;
   text-align: end;
   color: white;
-  font-size: 100px;
+  font-size: 4rem;
+  display: flex;
+  justify-content: flex-end;
+  overflow-wrap: break-word;
+  word-break: break-all;
 }
 
 .buttonContainer {
   padding: 20px;
+  margin-top: 20px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(5, 1fr);
@@ -90,4 +101,10 @@ body {
   grid-column: 1 / span 2;
   width: 170px;
   border-radius: 90px;
+}
+
+a {
+  background-color: black;
+  color: #dbdada;
+  font-size: 31.5px;
 }
