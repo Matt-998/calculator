@@ -75,6 +75,10 @@ for (const digit of digits) {
   digit.addEventListener("click", addDigit);
 }
 
+for (const digit of digits) {
+  digit.addEventListener("keydown", addDigit);
+}
+
 decimal.addEventListener("click", addDecimal);
 
 function clear() {
@@ -92,6 +96,7 @@ function clear() {
       temp.splice(temp.length - 1, 1, " ");
       subDisplay.textContent = temp.join(" ");
       clearCondition = true;
+      decimalCondition = false;
     }
   }
 }
@@ -120,7 +125,7 @@ function equal() {
   operate(operator, operand1, operand2);
 }
 
-function addOperator() {
+function addOperator(key) {
   clearCondition = false;
   if (mainDisplay.textContent === "Error") {
     allClear();
@@ -134,40 +139,56 @@ function addOperator() {
         if (operator !== undefined && equalCondition === false) {
           equal();
         }
-        operator = this.getAttribute("data-value");
-        equalCondition = false;
-        decimalCondition = false;
-        switch (operator) {
-          case "x":
-            subDisplayContent(" × ");
-            break;
-          case "-":
-            subDisplayContent(" − ");
-            break;
-          case "+":
-            subDisplayContent(" + ");
-            break;
-          case "/":
-            subDisplayContent(" ÷ ");
-            break;
+        if (key.width === 1) {
+          operator = this.getAttribute("data-value");
+          equalCondition = false;
+          decimalCondition = false;
+          switch (operator) {
+            case "x":
+              subDisplayContent(" × ");
+              break;
+            case "-":
+              subDisplayContent(" − ");
+              break;
+            case "+":
+              subDisplayContent(" + ");
+              break;
+            case "/":
+              subDisplayContent(" ÷ ");
+              break;
+          }
+        } else {
+          operator = key;
+          equalCondition = false;
+          decimalCondition = false;
+          subDisplayContent(` ${key} `);
         }
       }
     }
   }
 }
 
-function addDigit() {
+function addDigit(key) {
   clearCondition = false;
-  if (mainDisplay.textContent === "Error") {
-    allClear();
+  if (key.width === 1) {
+    if (mainDisplay.textContent === "Error") {
+      allClear();
+    } else if (equalCondition === false) {
+      subDisplayContent(this.getAttribute("data-value"));
+    }
   } else if (equalCondition === false) {
-    subDisplayContent(this.getAttribute("data-value"));
+    subDisplayContent(key);
   }
 }
 
-function addDecimal() {
-  if (decimalCondition === false) {
-    subDisplayContent(this.getAttribute("data-value"));
+function addDecimal(key) {
+  if (key.width === 1) {
+    if (decimalCondition === false) {
+      subDisplayContent(this.getAttribute("data-value"));
+      decimalCondition = true;
+    }
+  } else if (decimalCondition === false) {
+    subDisplayContent(key);
     decimalCondition = true;
   }
 }
@@ -175,7 +196,33 @@ function addDecimal() {
 function subDisplayContent(text) {
   subDisplay.textContent = subDisplay.textContent + text;
 }
-
+// TIMES IS BROKEN *
 document.addEventListener("keydown", function (e) {
-  console.log(e.key);
+  console.log(e.code);
+  switch (e.key) {
+    case "+":
+    case "-":
+    case "/":
+    case "*":
+      addOperator(e.key);
+      break;
+    case "=":
+      equal();
+      break;
+    case ".":
+      addDecimal(e.key);
+      break;
+    case "1":
+    case "2":
+    case "3":
+    case "4":
+    case "5":
+    case "6":
+    case "7":
+    case "8":
+    case "9":
+    case "0":
+      addDigit(e.key);
+      break;
+  }
 });
