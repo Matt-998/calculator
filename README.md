@@ -1,5 +1,8 @@
 # Calculator
 
+![image](https://github.com/Matt-998/calculator/assets/123720140/dcb56d90-5228-48c4-99bc-354c7ccb013e)
+
+
 This is my calculator project that i made over the course of 1 week
 for TheOdinProject foundations course.
 I took inspiration from the IOS Iphone calculator as that's what i
