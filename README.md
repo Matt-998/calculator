@@ -11,4 +11,4 @@ as well as test my CSS skills.
 
 I'm pleased with the overall result.
 
-See the <a href="https://matt-998.github.io/Etch-a-Sketch/" target="_blank">Live Demo</a>
+See the <a href="https://matt-998.github.io/calculator/" target="_blank">Live Demo</a>
