@@ -1,4 +1,4 @@
-##Calculator
+# Calculator
 
 This is my calculator project that i made over the course of 1 week
 for TheOdinProject foundations course.
